@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  rocrail:
+    image: rocrail:0.0.1
+    container_name: rocrail
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    volumes:
+      - ./config/rocrail/lic.dat:/lic.dat
+      - ./config/rocrail/rocrail.ini:/rocrail.ini
+      - ./config/rocrail/plan.xml:/plan.xml
+      - ./config/rocrail/occ.xml:/occ.xml
+      - ./config/rocrail/Lokbilder:/Lokbilder
+      - ./config/rocrail/backup:/backup
+    environment:
+      - TZ=Europe/Zurich
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    networks:
+      - default
+    ports:
+      - "8051:8051"
+      - "8008:8008"
+  mqtt:
+    image: eclipse-mosquitto:2.0.14
+    container_name: mqtt
+    volumes:
+      - ./config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    networks:
+      - default
+    ports:
+      - "1883:1883"
+    depends_on:
+        - "rocrail"
+  nodered:
+    image: nodered/node-red
+    container_name: nodered
+    volumes:
+      - ./config/nodered/flows.json:/data/flows.json
+    networks:
+      - default
+    ports:
+      - "1880:1880"
