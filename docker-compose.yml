@@ -18,6 +18,9 @@ services:
     ports:
       - "8051:8051"
       - "8008:8008"
+    depends_on:
+      - "mqtt"
+
   mqtt:
     image: eclipse-mosquitto:2.0.14
     container_name: mqtt
@@ -25,16 +28,15 @@ services:
       - ./config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
     networks:
       - default
-    ports:
-      - "1883:1883"
-    depends_on:
-        - "rocrail"
+
   nodered:
     image: nodered/node-red
     container_name: nodered
     volumes:
-      - ./config/nodered/flows.json:/data/flows.json
+      - ./config/nodered:/data
     networks:
       - default
     ports:
       - "1880:1880"
+    depends_on:
+      - "mqtt"
