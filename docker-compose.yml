@@ -7,12 +7,7 @@ services:
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     volumes:
-      - ./config/rocrail/lic.dat:/lic.dat
-      - ./config/rocrail/rocrail.ini:/rocrail.ini
-      - ./config/rocrail/plan.xml:/plan.xml
-      - ./config/rocrail/occ.xml:/occ.xml
-      - ./config/rocrail/Lokbilder:/Lokbilder
-      - ./config/rocrail/backup:/backup
+      - ./config/rocrail:/root/Rocrail/default
     environment:
       - TZ=Europe/Zurich
     build:

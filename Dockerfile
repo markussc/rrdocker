@@ -9,6 +9,6 @@ RUN apt-get -y update && apt-get install -y \
 
 RUN FILE=Rocrail-ubuntu2204-AMD64.zip
 RUN wget https://wiki.rocrail.net/rocrail-snapshot/Ubuntu/Rocrail-ubuntu2204-AMD64.zip
-RUN unzip Rocrail-ubuntu2204-AMD64.zip -d rocrail
-CMD rocrail/bin/rocrail
+RUN unzip Rocrail-ubuntu2204-AMD64.zip -d /root/Rocrail
+CMD /root/Rocrail/startrocrail.sh
 EXPOSE 8051
