@@ -18,12 +18,15 @@ services:
     ports:
       - "8051:8051"
       - "8008:8008"
+      - "8088:8088"
     depends_on:
       - "mqtt"
 
   mqtt:
     image: eclipse-mosquitto:2.0.14
     container_name: mqtt
+    environment:
+      - TZ=Europe/Zurich
     volumes:
       - ./config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
     networks:
@@ -32,6 +35,8 @@ services:
   nodered:
     image: nodered/node-red
     container_name: nodered
+    environment:
+      - TZ=Europe/Zurich
     volumes:
       - ./config/nodered:/data
     networks:

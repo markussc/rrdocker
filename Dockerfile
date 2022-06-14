@@ -3,6 +3,7 @@ LABEL maintainer="markus.schafroth@3084.ch"
 LABEL description="Rocrail server including connectable mqtt/nodered containers for timetable displays"
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get -y update && apt-get install -y \
+        tzdata \
         wget \
         unzip \
     && true
