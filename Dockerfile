@@ -8,7 +8,7 @@ RUN apt-get -y update && apt-get install -y \
         unzip \
     && true
 
-RUN wget https://wiki.rocrail.net/rocrail-snapshot/Ubuntu/Rocrail-debian11-i64.zip
+RUN wget https://wiki.rocrail.net/rocrail-snapshot/Debian/Rocrail-debian11-i64.zip
 RUN unzip Rocrail-debian11-i64.zip -d /root/Rocrail
 CMD /root/Rocrail/startrocrail.sh
 EXPOSE 8051
